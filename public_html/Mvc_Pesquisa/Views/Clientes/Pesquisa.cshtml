@@ -1,0 +1,59 @@
+﻿@model Mvc_Pesquisa.ViewModels.ClienteVM
+
+@{
+    ViewBag.Title = "Cliente";
+    WebGrid grid = new WebGrid(canPage: false, canSort: false);
+    grid.Bind(Model.Clientes,
+              autoSortAndPage: false
+    );
+}
+
+<p></p>
+
+@using (Html.BeginForm())
+{
+    <form class="form-horizontal" role="form">
+        <table class="table">
+            <tr>
+                <td>
+                    Nome
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Nome)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cidade
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Cidade)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Estado
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Estado)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" id="search" title="Pesquisar" value="Pesquisar" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div id="resultadoPesquisa">
+        @grid.GetHtml(
+            fillEmptyRows: true, alternatingRowStyle: "alternate-row", headerStyle: "grid-header", footerStyle: "grid-footer",
+            columns: new[] {
+                grid.Column("Nome"),
+                grid.Column("Cidade"),
+                grid.Column("Estado")
+        })
+    </div>
+}
+
+
